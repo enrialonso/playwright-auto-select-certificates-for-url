@@ -29,16 +29,6 @@ RUN pip install -r requirements.txt
 
 COPY . .
 
-RUN mkdir -p /etc/chromium/policies/managed/
-RUN cp policies.json /etc/chromium/policies/managed/policies.json
+RUN playwright install firefox
 
-RUN mkdir -p "${HOME}/.pki/nssdb/"
-
-# Init certificates database
-# RUN certutil -d sql:$HOME/.pki/nssdb -N
-# Install certificates for badssl.com
-RUN pk12util -i "badssl.com-client.p12" -d "${HOME}/.pki/nssdb/" -W "badssl.com"
-# Only for check on the terminal if the certificate it's installed correctly
-RUN certutil -d "sql:${HOME}/.pki/nssdb" -L
-
-ENTRYPOINT xvfb-run python3 main.py
+ENTRYPOINT xvfb-run python3 firefox.py
