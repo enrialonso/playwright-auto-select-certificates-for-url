@@ -31,4 +31,4 @@ COPY . .
 
 RUN playwright install firefox
 
-ENTRYPOINT xvfb-run python3 firefox.py
+ENTRYPOINT python3 firefox.py
